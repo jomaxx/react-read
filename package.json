@@ -1,6 +1,6 @@
 {
   "name": "react-read",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Read the value of a promise. Uses React Suspense to \"wait\" for promise to resolve.",
   "main": "lib/index.js",
   "files": [
