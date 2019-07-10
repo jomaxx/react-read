@@ -1,0 +1,28 @@
+{
+  "name": "react-read",
+  "version": "0.0.0",
+  "description": "Read the value of a promise. Uses React Suspense to \"wait\" for promise to resolve.",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "build": "rm -rf lib && tsc",
+    "prepublishOnly": "$npm_execpath run test && $npm_execpath run build"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^8.0.4",
+    "@types/jest": "^24.0.15",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "jest": "^24.8.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  },
+  "repository": "git@github.com:jomaxx/react-read.git",
+  "author": "Jo Maxx Blake <jo.maxx.blake@gmail.com>"
+}
