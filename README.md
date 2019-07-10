@@ -12,6 +12,8 @@ yarn add react react-dom react-read
 
 `react-read` relies on the same promise object being passed to it across renders. A trivial way to ensure the same promise is passed would be to store it in a variable outside of render.
 
+https://codesandbox.io/s/frosty-thunder-33nl0
+
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
@@ -42,6 +44,8 @@ ReactDOM.render(
 
 [lodash.memoize](https://lodash.com/docs/#memoize) creates a function that caches the result of a function call. When the memoized function is called with the same cache key then it will return the cached result.
 
+https://codesandbox.io/s/eloquent-torvalds-88rin
+
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
@@ -71,6 +75,8 @@ ReactDOM.render(
 ### DataLoader Example
 
 [DataLoader](https://github.com/graphql/dataloader) is a generic utility to be used as part of your application's data fetching layer to provide a consistent API over various backends and reduce requests to those backends via batching and caching.
+
+https://codesandbox.io/s/charming-benz-dy16s
 
 ```jsx
 import React from "react";
