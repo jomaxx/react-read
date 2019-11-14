@@ -1,11 +1,7 @@
 {
+  "extends": "@spotify/web-scripts/config/tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "jsx": "react",
-    "target": "es6",
-    "declaration": true,
-    "outDir": "lib"
+    "jsx": "react"
   },
-  "include": ["src/**/*"],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx", "**/__tests__/**"]
+  "include": ["src"]
 }

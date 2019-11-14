@@ -1,109 +1,46 @@
 # react-read
 
-Read the value of a promise. Uses React Suspense to "wait" for promise to resolve.
+Utility that enables [Suspense for Data Fetching](https://reactjs.org/docs/concurrent-mode-suspense.html).
 
 ## Usage
 
+### Install
+
 ```bash
 yarn add react react-dom react-read
+# or with NPM
+npm install react react-dom react-read
 ```
 
-### Basic Example
+### read(promise)
 
-`react-read` relies on the same promise object being passed to it across renders. A trivial way to ensure the same promise is passed would be to store it in a variable outside of render.
+Calling `read(promise)` in your render function will suspend rendering until the promise is resolved. If the promise rejects, the rejection is thrown.
 
-https://codesandbox.io/s/frosty-thunder-33nl0
+https://codesandbox.io/s/snowy-framework-vuvp8
 
 ```jsx
-import React from "react";
-import ReactDOM from "react-dom";
-import { read } from "react-read";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { read } from 'react-read';
+import { fetchUser } from './api';
 
-let promise;
+const resource = {
+  user: fetchUser(1), // returns a promise
+};
 
 function App() {
-  const msg = read(
-    promise ||
-      (promise = new Promise(resolve => {
-        setTimeout(resolve, 1000, "Hello World!");
-      }))
-  );
+  const user = read(resource.user);
+  return <h1>Hello {user.name}!</h1>;
+}
 
-  return <h1>{msg}</h1>;
+function AppLoading() {
+  return <h1>Loading...</h1>;
 }
 
 ReactDOM.render(
-  <React.Suspense fallback={<h1>Loading...</h1>}>
+  <React.Suspense fallback={<AppLoading />}>
     <App />
   </React.Suspense>,
-  document.getElementById("root")
-);
-```
-
-### Memoize Example
-
-[lodash.memoize](https://lodash.com/docs/#memoize) creates a function that caches the result of a function call. When the memoized function is called with the same cache key then it will return the cached result.
-
-https://codesandbox.io/s/eloquent-torvalds-88rin
-
-```jsx
-import React from "react";
-import ReactDOM from "react-dom";
-import { read } from "react-read";
-import memoize from "lodash/memoize";
-
-const getMessage = memoize(
-  key =>
-    new Promise(resolve => {
-      setTimeout(resolve, 1000, "Hello World!");
-    })
-);
-
-function App() {
-  const msg = read(getMessage(1));
-  return <h1>{msg}</h1>;
-}
-
-ReactDOM.render(
-  <React.Suspense fallback={<h1>Loading...</h1>}>
-    <App />
-  </React.Suspense>,
-  document.getElementById("root")
-);
-```
-
-### DataLoader Example
-
-[DataLoader](https://github.com/graphql/dataloader) is a generic utility to be used as part of your application's data fetching layer to provide a consistent API over various backends and reduce requests to those backends via batching and caching.
-
-https://codesandbox.io/s/charming-benz-dy16s
-
-```jsx
-import React from "react";
-import ReactDOM from "react-dom";
-import { read } from "react-read";
-import DataLoader from "dataloader";
-
-const messageLoader = new DataLoader(keys =>
-  Promise.all(
-    keys.map(
-      key =>
-        new Promise(resolve => {
-          setTimeout(resolve, 1000, "Hello World!");
-        })
-    )
-  )
-);
-
-function App() {
-  const msg = read(messageLoader.load(1));
-  return <h1>{msg}</h1>;
-}
-
-ReactDOM.render(
-  <React.Suspense fallback={<h1>Loading...</h1>}>
-    <App />
-  </React.Suspense>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 ```
