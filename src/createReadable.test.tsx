@@ -6,6 +6,24 @@ beforeEach(() => {
   jest.restoreAllMocks();
 });
 
+test('returns', done => {
+  const expected = {};
+  const readable = createReadable(expected);
+
+  function Test() {
+    const received = readable.read();
+
+    React.useEffect(() => {
+      expect(received).toBe(expected);
+      done();
+    }, []);
+
+    return null;
+  }
+
+  ReactDOM.render(<Test />, document.createElement('div'));
+});
+
 test('resolves', done => {
   const expected = {};
   const readable = createReadable(Promise.resolve(expected));

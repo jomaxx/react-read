@@ -1,32 +1,32 @@
-const key = Symbol('read');
+export function createReadable<T>(data: PromiseLike<T> | T) {
+  let read: () => T;
 
-interface Suspender<T> extends Promise<T> {
-  [key]: () => T;
-}
-
-export function createReadable<T>(promise: Promise<T>) {
-  const suspender = promise as Suspender<T>;
-
-  if (!suspender[key]) {
-    suspender[key] = () => {
-      throw suspender;
+  if (isPromiseLike<T>(data)) {
+    read = () => {
+      throw data;
     };
 
-    suspender.then(
+    Promise.resolve(data).then(
       result => {
-        suspender[key] = () => result;
+        read = () => result;
       },
       error => {
-        suspender[key] = () => {
+        read = () => {
           throw error;
         };
       },
     );
+  } else {
+    read = () => data;
   }
 
   return {
-    get read() {
-      return suspender[key];
+    read() {
+      return read();
     },
-  };
+  } as const;
+}
+
+function isPromiseLike<T>(obj: any): obj is PromiseLike<T> {
+  return obj && typeof obj.then === 'function';
 }

@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { read } from './read';
+import { useReadable } from './useReadable';
 
 test('resolves', done => {
   const expected = {};
-  const promise = Promise.resolve(expected);
 
-  function Test() {
-    const received = read(promise);
+  function Test({ data }: any) {
+    const received = data.read();
 
     React.useEffect(() => {
       expect(received).toBe(expected);
@@ -17,9 +16,14 @@ test('resolves', done => {
     return null;
   }
 
+  function App() {
+    const [data] = useReadable(async () => expected);
+    return <Test data={data} />;
+  }
+
   ReactDOM.render(
     <React.Suspense fallback={null}>
-      <Test />
+      <App />
     </React.Suspense>,
     document.createElement('div'),
   );

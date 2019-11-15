@@ -12,24 +12,37 @@ yarn add react react-dom react-read
 npm install react react-dom react-read
 ```
 
-### createReadable(promise)
+### useReadable(factory, deps?) => [readable, put]
 
-`createReadable(promise)` returns an `object` with a `read` method. Calling `object.read()` in your render function will suspend rendering until the promise is resolved. If the promise rejects, the rejection is thrown.
+Calling `readable.read()` in your render function will suspend rendering until the promise returned by `factory` is resolved. Calling `put(data)` will trigger an update.
 
 https://codesandbox.io/s/snowy-framework-vuvp8
 
 ```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createReadable } from 'react-read';
+import { useReadable } from 'react-read';
 import { fetchUser } from './api';
 
-const promise = fetchUser(1);
-const readable = createReadable(promise);
+function useUserData(userId) {
+  return useReadable(() => fetchUser(userId), [userId]);
+}
 
-function App() {
-  const user = readable.read();
-  return <h1>Hello {user.name}!</h1>;
+function UserNameInput({ userData, putUser }) {
+  const user = userData.read();
+
+  return (
+    <input
+      type="text"
+      value={user.name}
+      onChange={e => putUser({ ...user, name: e.target.value })}
+    />
+  );
+}
+
+function App(props) {
+  const [userData, putUser] = useUserData(props.userId);
+  return <UserNameInput userData={userData} putUser={putUser} />;
 }
 
 function AppLoading() {
@@ -38,12 +51,16 @@ function AppLoading() {
 
 ReactDOM.render(
   <React.Suspense fallback={<AppLoading />}>
-    <App />
+    <App userId={1} />
   </React.Suspense>,
   document.getElementById('root'),
 );
 ```
 
-### read(promise)
+### createReadable(data) => readable
 
-Same as `createReadable(promise).read()`.
+Create a `readable` object.
+
+### read(promise) => value
+
+Read a `promise` object.
