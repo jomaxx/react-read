@@ -7,15 +7,17 @@ export function useReadable<T>(
 ) {
   const init = React.useMemo(factory, deps);
 
-  const [readable, put] = React.useReducer(
+  const value = React.useReducer(
     (_prev, next: PromiseLike<T> | T) => createReadable(next),
     init,
     createReadable,
   );
 
+  const [, put] = value;
+
   React.useMemo(() => {
     put(init);
   }, [init]);
 
-  return React.useMemo(() => [readable, put], [readable]);
+  return value;
 }
