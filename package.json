@@ -1,6 +1,6 @@
 {
   "name": "react-read",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "private": false,
   "description": "Utility that enables Suspense for Data Fetching.",
   "repository": "git@github.com:jomaxx/react-read.git",

@@ -4,8 +4,10 @@ import { useReadable } from './useReadable';
 
 test('resolves', done => {
   const expected = {};
+  const promise = Promise.resolve(expected);
 
-  function Test({ data }: any) {
+  function Test() {
+    const [data] = useReadable(() => promise);
     const received = data.read();
 
     React.useEffect(() => {
@@ -16,14 +18,9 @@ test('resolves', done => {
     return null;
   }
 
-  function App() {
-    const [data] = useReadable(async () => expected);
-    return <Test data={data} />;
-  }
-
   ReactDOM.render(
     <React.Suspense fallback={null}>
-      <App />
+      <Test />
     </React.Suspense>,
     document.createElement('div'),
   );
