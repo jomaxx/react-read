@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createReadable } from './createReadable';
+import { Readable } from './Readable';
 
 beforeEach(() => {
   jest.restoreAllMocks();
@@ -8,10 +8,10 @@ beforeEach(() => {
 
 test('returns', done => {
   const expected = {};
-  const readable = createReadable(expected);
+  const readable = Readable.create(expected);
 
   function Test() {
-    const received = readable.read();
+    const { value: received } = readable;
 
     React.useEffect(() => {
       expect(received).toBe(expected);
@@ -26,7 +26,7 @@ test('returns', done => {
 
 test('resolves', done => {
   const expected = {};
-  const readable = createReadable(Promise.resolve(expected));
+  const readable = Readable.create(Promise.resolve(expected));
 
   function Test() {
     const received = readable.read();
@@ -51,7 +51,7 @@ test('rejects', done => {
   jest.spyOn(console, 'error').mockReturnValue(undefined);
 
   const expected = new Error('error');
-  const readable = createReadable(Promise.reject(expected));
+  const readable = Readable.create(Promise.reject(expected));
 
   class ErrorBoundary extends React.Component {
     componentDidCatch(received: Error) {

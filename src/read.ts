@@ -1,5 +1,5 @@
-import { createReadable } from './createReadable';
+import { Readable } from './Readable';
 
 export function read<T>(data: PromiseLike<T> | T) {
-  return createReadable(data).read();
+  return Readable.create(data).read();
 }

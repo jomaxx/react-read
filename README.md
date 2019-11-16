@@ -12,37 +12,23 @@ yarn add react react-dom react-read
 npm install react react-dom react-read
 ```
 
-### useReadable(factory, deps?) => [readable, put]
+### Readable.create(object) => readable
 
-Calling `readable.read()` in your render function will suspend rendering until the promise returned by `factory` is resolved. Calling `put(data)` will trigger an update.
+If `object` is a promise, calling `readable.read()` in your render function will suspend rendering until the promise is resolved. The same is true for `readable.value`.
 
 https://codesandbox.io/s/snowy-framework-vuvp8
 
 ```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { useReadable } from 'react-read';
+import { Readable } from 'react-read';
 import { fetchUser } from './api';
 
-function useUserData(userId) {
-  return useReadable(() => fetchUser(userId), [userId]);
-}
-
-function UserNameInput({ userData, putUser }) {
-  const user = userData.read();
-
-  return (
-    <input
-      type="text"
-      value={user.name}
-      onChange={e => putUser({ ...user, name: e.target.value })}
-    />
-  );
-}
+const readable = Readable.create(fetchUser(1));
 
 function App(props) {
-  const [userData, putUser] = useUserData(props.userId);
-  return <UserNameInput userData={userData} putUser={putUser} />;
+  const user = readable.read(); // or readable.value
+  return <h1>Hello {user.name}!</h1>;
 }
 
 function AppLoading() {
