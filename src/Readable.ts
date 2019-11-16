@@ -1,42 +1,40 @@
 const key = Symbol('read');
 
 interface Suspendable<T> extends PromiseLike<T> {
-  [key]: () => T;
+  [key]?: () => T;
 }
 
 export class Readable<T> {
-  static create<T>(object: PromiseLike<T> | T) {
+  static create<T>(object: Suspendable<T> | T) {
     return new Readable(object);
   }
 
-  constructor(object: PromiseLike<T> | T) {
-    if (!isPromiseLike<T>(object)) {
+  constructor(object: Suspendable<T> | T) {
+    if (!isSuspendable<T>(object)) {
       this._read = () => object;
       return;
     }
 
-    const promise = object as Suspendable<T>;
-
-    if (!promise[key]) {
+    if (!object[key]) {
       const suspender = Promise.resolve(object);
 
-      promise[key] = () => {
+      object[key] = () => {
         throw suspender;
       };
 
       suspender.then(
         result => {
-          promise[key] = () => result;
+          object[key] = () => result;
         },
         error => {
-          promise[key] = () => {
+          object[key] = () => {
             throw error;
           };
         },
       );
     }
 
-    this._read = () => promise[key]();
+    this._read = () => (object[key] as () => T)();
   }
 
   _read: () => T;
@@ -50,6 +48,6 @@ export class Readable<T> {
   }
 }
 
-function isPromiseLike<T>(obj: any): obj is PromiseLike<T> {
+function isSuspendable<T>(obj: any): obj is Suspendable<T> {
   return obj && typeof obj.then === 'function';
 }
