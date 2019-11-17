@@ -43,10 +43,6 @@ ReactDOM.render(
 );
 ```
 
-### createReadable(data) => readable
-
-Create a `readable` object.
-
 ### read(promise) => value
 
-Read a `promise` object.
+Read a `promise` object. Same as `Readable.create(promise).read()`.

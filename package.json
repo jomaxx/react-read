@@ -17,8 +17,10 @@
   "scripts": {
     "lint": "web-scripts lint",
     "test": "web-scripts test",
+    "prebuild": "rm -rf cjs esm types",
     "build": "web-scripts build",
     "commit": "web-scripts commit",
+    "prerelease": "yarn check --integrity && yarn build",
     "release": "web-scripts release"
   },
   "husky": {
