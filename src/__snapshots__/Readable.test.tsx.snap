@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rejects 1`] = `
+"Error: error
+    at Promise.object.<computed> (/Users/jomaxx/dev/jomaxx/react-read/src/Readable.ts:31:19)
+    at Readable._read (/Users/jomaxx/dev/jomaxx/react-read/src/Readable.ts:37:48)
+    at Test (/Users/jomaxx/dev/jomaxx/react-read/src/Readable.test.tsx:73:16)
+    at renderWithHooks (/Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:16260:18)
+    at mountIndeterminateComponent (/Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:18794:13)
+    at beginWork$1 (/Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:20162:16)
+    at HTMLUnknownElement.callCallback (/Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:336:14)
+    at innerInvokeEventListeners (/Users/jomaxx/dev/jomaxx/react-read/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:316:27)
+    at invokeEventListeners (/Users/jomaxx/dev/jomaxx/react-read/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:267:3)
+    at HTMLUnknownElementImpl._dispatch (/Users/jomaxx/dev/jomaxx/react-read/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:214:9)
+    at HTMLUnknownElementImpl.dispatchEvent (/Users/jomaxx/dev/jomaxx/react-read/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:87:17)
+    at HTMLUnknownElement.dispatchEvent (/Users/jomaxx/dev/jomaxx/react-read/node_modules/jsdom/lib/jsdom/living/generated/EventTarget.js:144:23)
+    at Object.invokeGuardedCallbackDev (/Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:385:16)
+    at invokeGuardedCallback (/Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:440:31)
+    at beginWork$$1 (/Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:25780:7)
+    at performUnitOfWork (/Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:24698:12)
+    at workLoopSync (/Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:24671:22)
+    at performSyncWorkOnRoot (/Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:24270:11)
+    at /Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:12199:24
+    at unstable_runWithPriority (/Users/jomaxx/dev/jomaxx/react-read/node_modules/scheduler/cjs/scheduler.development.js:697:12)
+    at runWithPriority$2 (/Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:12149:10)
+    at flushSyncCallbackQueueImpl (/Users/jomaxx/dev/jomaxx/react-read/node_modules/react-dom/cjs/react-dom.development.js:12194:7)
+    at workLoop (/Users/jomaxx/dev/jomaxx/react-read/node_modules/scheduler/cjs/scheduler.development.js:641:34)
+    at flushWork (/Users/jomaxx/dev/jomaxx/react-read/node_modules/scheduler/cjs/scheduler.development.js:596:16)
+    at _flushCallback (/Users/jomaxx/dev/jomaxx/react-read/node_modules/scheduler/cjs/scheduler.development.js:48:9)
+    at Timeout.callback [as _onTimeout] (/Users/jomaxx/dev/jomaxx/react-read/node_modules/jsdom/lib/jsdom/browser/Window.js:643:19)
+    at listOnTimeout (internal/timers.js:549:17)
+    at processTimers (internal/timers.js:492:7)
+    rethrown:
+    at /Users/jomaxx/dev/jomaxx/react-read/src/Readable.test.tsx:58:22
+    at new Promise (<anonymous>)
+    at Object.<anonymous> (/Users/jomaxx/dev/jomaxx/react-read/src/Readable.test.tsx:55:10)
+    at Object.asyncJestTest (/Users/jomaxx/dev/jomaxx/react-read/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
+    at /Users/jomaxx/dev/jomaxx/react-read/node_modules/jest-jasmine2/build/queueRunner.js:45:12
+    at new Promise (<anonymous>)
+    at mapper (/Users/jomaxx/dev/jomaxx/react-read/node_modules/jest-jasmine2/build/queueRunner.js:28:19)
+    at /Users/jomaxx/dev/jomaxx/react-read/node_modules/jest-jasmine2/build/queueRunner.js:75:41"
+`;

@@ -28,7 +28,7 @@ export class Readable<T> {
         },
         error => {
           object[key] = () => {
-            throw error;
+            throw rethrown(error);
           };
         },
       );
@@ -50,4 +50,18 @@ export class Readable<T> {
 
 function isSuspendable<T>(obj: any): obj is Suspendable<T> {
   return obj && typeof obj.then === 'function';
+}
+
+function rethrown(old: Error) {
+  if (!(old instanceof Error)) return old;
+  const error = new Error(old.message);
+  error.name = old.name;
+  error.message = old.message;
+  if (!error.stack || !old.stack) return old;
+  const stack = error.stack.split('\n');
+  stack.splice(1, 1);
+  stack.push('    rethrown:');
+  stack.push(...old.stack.split('\n').slice(1));
+  error.stack = stack.join('\n');
+  return error;
 }

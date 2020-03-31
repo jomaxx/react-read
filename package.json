@@ -30,7 +30,7 @@
     }
   },
   "devDependencies": {
-    "@spotify/web-scripts": "^3.0.1",
+    "@spotify/web-scripts": "^6.1.0",
     "husky": "^3.0.9",
     "node-fetch": "^2.6.0",
     "react": "^16.11.0",
